@@ -2,9 +2,9 @@
     "type": "project",
     "license": "proprietary",
     "require": {
-        "php": "^8.2.4",
+        "php": "^8.2.8",
         "ext-ctype": "*",
-        "ext-gd": "^8.2.4",
+        "ext-gd": "^8.2.8",
         "ext-iconv": "*",
         "doctrine/doctrine-bundle": "^2.9.1",
         "doctrine/doctrine-migrations-bundle": "^3.2.3",
@@ -46,7 +46,7 @@
             "*": "dist"
         },
         "platform": {
-            "php": "8.2.4"
+            "php": "8.2.8"
         },
         "sort-packages": true,
         "allow-plugins": {

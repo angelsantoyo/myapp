@@ -24,6 +24,7 @@ backend:
     faq: FAQ
     contact: Conctact
     inbox: Boîte de reception
+    mt: Tipos de Membresía
   role:
     choice_role: Choisissez un role
   user:
@@ -51,3 +52,12 @@ backend:
     changed_password: Mot de passe modifié
     add_user: Utilisateur ajouté
     modify_user: Utilisateur modifié
+  mt:
+    name: Tipo de Membresía
+    description: Descripción
+    max_members: Max Membresias
+    annual_cost: Costo Anual
+    monthly_amount: Costo Mensual
+    modif: Modificar
+    activ: Status
+    borrar: Borrar
