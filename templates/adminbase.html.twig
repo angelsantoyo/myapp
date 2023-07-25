@@ -155,7 +155,7 @@
         $(document).on("click",".del-link",function (e) {
             /*$(".activate-link").click(function(e) {*/
             e.preventDefault();
-            if(confirm("Voulez vous vraiment supprimer ?")){
+            if(confirm("{{"backend.global.confirmacionDelete"|trans }}")){
                 var btn = $(this);
                 var link = $(this).attr("href");
                 $.ajax({
@@ -164,7 +164,7 @@
                     success: function(data){
                         if(data.message=="success"){
                             if(data.value===true){
-                                notif("success","Reussi","Suprimmé");
+                                notif("success","{{"backend.global.sucess"|trans }}","{{"backend.global.delete"|trans }}");
                                 // Get the position of the current data from the node
                                 var aPos = dataminetables.fnGetPosition( btn.closest('tr').get(0) );
                                 // Delete the row

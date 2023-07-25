@@ -30,6 +30,8 @@
                     <ul class="nav side-menu">
                         <li><a href="{{ path('app_admin_index') }}"><i class="fa fa-home"></i> {{ "backend.menu.home"|trans }}</a>
                         </li>
+                        <li><a href="{{ path('app_admin_membership') }}"><i class="fa fa-credit-card"></i>{{ "backend.menu.membership"|trans }}</a>
+                        </li>
                         {% if is_granted("ROLE_SUPERUSER") %}
                             <li><a><i class="fa fa-user"></i> {{ "backend.menu.user"|trans }} <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
@@ -43,6 +45,7 @@
                                     <li><a href="{{ path('app_admin_categories') }}">{{ "backend.menu.manage"|trans }}</a></li>
                                 </ul>
                             </li>
+
                             <li><a><i class="fa fa-clipboard"></i> {{ "backend.menu.blog"|trans }} <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <li><a href="{{ path('app_admin_blogPosts') }}">{{ "backend.menu.manage"|trans }}</a></li>
@@ -61,9 +64,10 @@
 
                             <li><a><i class="fa fa-cog"></i> {{ "backend.menu.settings"|trans }} <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
+                                    <li><a href="{{ path('app_admin_membershiptypes') }}">{{ "backend.menu.mt"|trans }}</a></li>
+                                    <li><a href="{{ path('app_admin_paymenttypes') }}">{{ "backend.menu.paymentT"|trans }}</a></li>
                                     <li><a href="{{ path('app_admin_parametre_generale') }}">{{ "backend.menu.general"|trans }}</a></li>
                                     <li><a href="{{ path('app_admin_faqs') }}">{{ "backend.menu.faq"|trans }}</a></li>
-                                    <li><a href="{{ path('app_admin_membershiptypes') }}">{{ "backend.menu.mt"|trans }}</a></li>
                                 </ul>
                             </li>
                         {% endif %}

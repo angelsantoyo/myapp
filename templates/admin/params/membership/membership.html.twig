@@ -14,16 +14,16 @@
             <div class="col-md-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>{{ 'backend.mt.Title'|trans }}</h2>
+                        <h2>{{ 'backend.menu.membership'|trans }}</h2>
                         <ul class="nav navbar-right panel_toolbox">
-                            <li><a href="{{ path('app_admin_new_membershiptypes') }}" class="btn btn-success">{{ 'backend.global.neew'|trans }}</a>
+                            <li><a href="{{ path('app_admin_new_membership') }}" class="btn btn-success">{{ 'backend.global.neew'|trans }}</a>
                             </li>
                         </ul>
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
                         <div class="row">
-                            <form action="{{ path('app_admin_groupaction_mt') }}" id="grpaction" method="post" name="grpaction">
+                            <form action="{{ path('app_admin_groupaction_membership') }}" id="grpaction" method="post" name="grpaction">
                                 <div class="form-group form-inline">
                                     <select class="form-control" name="action" required id="action_select">
                                         <option value="">Action de groupe</option>
@@ -38,25 +38,24 @@
                             <table id="example" class="display table table-striped table-bordered dataminetables" >
                                 <thead>
                                 <th><input type="checkbox" id="select_all" name="select_all"></th>
-                                <th>{{ 'backend.mt.name'|trans }}</th>
-                                <th>{{ 'backend.mt.description'|trans }}</th>
-                                <th>{{ 'backend.mt.annual_cost'|trans }}</th>
-                                <th>{{ 'backend.mt.monthly_amount'|trans }} </th>
-                                <th>{{ 'backend.mt.max_members'|trans }}</th>
-                                <th>{{ 'backend.mt.modif'|trans }}</th>
+                                <th>{{ 'backend.membership.membershipNumber'|trans }}</th>
+                                <th>{{ 'backend.membership.street'|trans }}</th>
+                                <th>{{ 'backend.membership.numberStreet'|trans }} </th>
+                                <th>{{ 'backend.membership.telephone'|trans }}</th>
+                                <th>{{ 'backend.membership.partner'|trans }}</th>
                                 <th>{{ 'backend.mt.borrar'|trans }}</th>
                                 </thead>
                                 <tbody>
-                                {% for membershtype in membershtypes|filter(membershtype => membershtype.status)  %}
+                                {% for membership in memberships|filter(membership => membership.status)  %}
                                     <tr>
-                                        <td><input type="checkbox" class="chkgrp" name="chkgrp[]" value="{{ membershtype.id }}"></td>
-                                        <td>{{ membershtype.name }}</td>
-                                        <td>{{ membershtype.description }}</td>
-                                        <td>{{ membershtype.annualCost }}</td>
-                                        <td>{{ membershtype.monthlyAmount }}</td>
-                                        <td>{{ membershtype.maxMembers }}</td>
-                                        <td><a class="btn btn-primary" href="{{ path('app_admin_edit_mt',{"id":membershtype.id}) }}"><i class="fa fa-edit"></i></a></td>
-                                        <td><a href="{{ path('app_admin_delete_mt', {'id': membershtype.id}) }}" class="btn btn-danger disable-btn del-link" type="submit" ><i class="fa fa-trash"></i></a></td>
+                                        <td><input type="checkbox" class="chkgrp" name="chkgrp[]" value="{{ membership.id }}"></td>
+                                        <td>{{ membership.membershipNumber }}</td>
+                                        <td>{{ membership.street }}</td>
+                                        <td>{{ membership.externalNumber }}</td>
+                                        <td>{{ membership.contactPhoneNumber }}</td>
+                                        <td><a class="btn btn-primary" href="{{ path('app_admin_partners',{"Membership": membership.membershipNumber }) }}"><i class="fa fa-edit">{{membership.membershipNumber }}</i></a></td>
+                                        <td><a class="btn btn-primary" href="{{ path('app_admin_edit_membership',{"id":membership.id}) }}"><i class="fa fa-edit"></i></a></td>
+                                        <td><a href="{{ path('app_admin_delete_membership', {'id': membership.id}) }}" class="btn btn-danger disable-btn del-link" type="submit" ><i class="fa fa-trash"></i></a></td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>

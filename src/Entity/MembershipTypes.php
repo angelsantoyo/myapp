@@ -38,6 +38,11 @@ class MembershipTypes
     #[ORM\Column]
     private ?\DateTimeImmutable $created_at = null;
 
+    public function __construct()
+    {
+
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -160,6 +165,16 @@ class MembershipTypes
     {
         $this->memberships = $memberships;
 
+        return $this;
+    }
+    public function getStatus(): bool
+    {
+
+        return $this->status;
+    }
+
+    public function findAll()
+    {
         return $this;
     }
 }

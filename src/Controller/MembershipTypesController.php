@@ -5,18 +5,25 @@ namespace App\Controller;
 use App\Entity\MembershipTypes;
 use App\Form\MTFormType;
 use App\Repository\MembershipTypesRepository;
+use App\Repository\RoleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
+use Monolog\DateTimeImmutable;
+use RectorPrefix202305\Nette\Utils\DateTime;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\Validator\Constraints\Date;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class MembershipTypesController extends BaseController
 {
     /**
      * @param $
      */
-    public function __construct(private MembershipTypesRepository $MembershipTypesRepository,private EntityManagerInterface $entityManager)
+    public function __construct(private MembershipTypesRepository $MembershipTypesRepository, private TranslatorInterface $translator, private EntityManagerInterface $entityManager)
     {
     }
 
@@ -32,13 +39,17 @@ class MembershipTypesController extends BaseController
     #[IsGranted('ROLE_ADMINISTRATOR')]
     public function newMT(Request $request): Response
     {
-        $form = $this->createForm(MTFormType::class);
+        $form = $this->createForm(MTFormType::class, null, ['translator' => $this->translator]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
-            /** @var  MembershipTypes $appMT */
+            $date = new DateTime();
+
+            $immutable = DateTimeImmutable::createFromMutable( $date );
+
             $appMT = $form->getData();
-            $appMT->setValid(true)
-                ->setDeleted(false);
+            $appMT->setStatus(true);
+            $appMT->setUpdatedAt($immutable);
+            $appMT->setCreatedAt($immutable);
             $this->entityManager->persist($appMT);
             $this->entityManager->flush();
             $this->addFlash("success","MT success");
@@ -52,16 +63,23 @@ class MembershipTypesController extends BaseController
     #[IsGranted('ROLE_ADMINISTRATOR')]
     public function editMT(MembershipTypes $appMT,Request $request): Response
     {
-        $form = $this->createForm(MTFormType::class,$appMT);
+        $form = $this->createForm(MTFormType::class, $appMT, ['translator' => $this->translator]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
+            $date = new DateTime();
+
+            $immutable = DateTimeImmutable::createFromMutable( $date );
+
+            $appMT = $form->getData();
+            $appMT->setStatus(true);
+            $appMT->setUpdatedAt($immutable);
             $this->entityManager->persist($appMT);
             $this->entityManager->flush();
-            $this->addFlash("success","FAQ modifié");
+            $this->addFlash("success","MT modifié");
             return $this->redirectToRoute("app_admin_membershiptypes");
 
         }
-        return $this->render("admin/params/membertype/mtform",["Form"=>$form->createView()]);
+        return $this->render("admin/params/membertype/mtform.html.twig",["Form"=>$form->createView()]);
     }
 
 
@@ -78,12 +96,12 @@ class MembershipTypesController extends BaseController
 
     #[Route(path: '/admin/parametre/MT/delete/{id}', name: 'app_admin_delete_mt')]
     #[IsGranted('ROLE_ADMINISTRATOR')]
-    public function delete(MembershipTypes $appMT): JsonResponse
+    public function delete(MembershipTypes $appMT): \Symfony\Component\HttpFoundation\JsonResponse
     {
-        $appMT->setDeleted(true);
+        $appMT->setStatus(0);
         $this->entityManager->persist($appMT);
         $this->entityManager->flush();
-        return $this->json(["message"=>"success","value"=>$appMT->getDeleted()]);
+        return $this->json(["message"=>"success","value"=>!$appMT->getStatus()]);
     }
 
 

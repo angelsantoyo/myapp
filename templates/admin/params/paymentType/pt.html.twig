@@ -1,4 +1,4 @@
-{% extends "admin/bars.html.twig" %}
+    {% extends "admin/bars.html.twig" %}
 
 {% block contenpage %}
     <div class="">
@@ -14,16 +14,16 @@
             <div class="col-md-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>{{ 'backend.mt.Title'|trans }}</h2>
+                        <h2>{{ 'backend.pt.name'|trans }}</h2>
                         <ul class="nav navbar-right panel_toolbox">
-                            <li><a href="{{ path('app_admin_new_membershiptypes') }}" class="btn btn-success">{{ 'backend.global.neew'|trans }}</a>
+                            <li><a href="{{ path('app_admin_new_paymenttypes') }}" class="btn btn-success">{{ 'backend.global.neew'|trans }}</a>
                             </li>
                         </ul>
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
                         <div class="row">
-                            <form action="{{ path('app_admin_groupaction_mt') }}" id="grpaction" method="post" name="grpaction">
+                            <form action="{{ path('app_admin_groupaction_pt') }}" id="grpaction" method="post" name="grpaction">
                                 <div class="form-group form-inline">
                                     <select class="form-control" name="action" required id="action_select">
                                         <option value="">Action de groupe</option>
@@ -38,25 +38,21 @@
                             <table id="example" class="display table table-striped table-bordered dataminetables" >
                                 <thead>
                                 <th><input type="checkbox" id="select_all" name="select_all"></th>
-                                <th>{{ 'backend.mt.name'|trans }}</th>
-                                <th>{{ 'backend.mt.description'|trans }}</th>
-                                <th>{{ 'backend.mt.annual_cost'|trans }}</th>
-                                <th>{{ 'backend.mt.monthly_amount'|trans }} </th>
-                                <th>{{ 'backend.mt.max_members'|trans }}</th>
+                                <th>{{ 'backend.pt.name'|trans }}</th>
+                                <th>{{ 'backend.pt.description'|trans }}</th>
+                                <th>{{ 'backend.pt.prefix'|trans }}</th>
                                 <th>{{ 'backend.mt.modif'|trans }}</th>
                                 <th>{{ 'backend.mt.borrar'|trans }}</th>
                                 </thead>
                                 <tbody>
-                                {% for membershtype in membershtypes|filter(membershtype => membershtype.status)  %}
+                                {% for paymenttype in paymenttypes|filter(paymenttype => paymenttype.status)  %}
                                     <tr>
-                                        <td><input type="checkbox" class="chkgrp" name="chkgrp[]" value="{{ membershtype.id }}"></td>
-                                        <td>{{ membershtype.name }}</td>
-                                        <td>{{ membershtype.description }}</td>
-                                        <td>{{ membershtype.annualCost }}</td>
-                                        <td>{{ membershtype.monthlyAmount }}</td>
-                                        <td>{{ membershtype.maxMembers }}</td>
-                                        <td><a class="btn btn-primary" href="{{ path('app_admin_edit_mt',{"id":membershtype.id}) }}"><i class="fa fa-edit"></i></a></td>
-                                        <td><a href="{{ path('app_admin_delete_mt', {'id': membershtype.id}) }}" class="btn btn-danger disable-btn del-link" type="submit" ><i class="fa fa-trash"></i></a></td>
+                                        <td><input type="checkbox" class="chkgrp" name="chkgrp[]" value="{{ paymenttype.id }}"></td>
+                                        <td>{{ paymenttype.name }}</td>
+                                        <td>{{paymenttype.description }}</td>
+                                        <td>{{ paymenttype.prefix }}</td>
+                                        <td><a class="btn btn-primary" href="{{ path('app_admin_edit_pt',{"id":paymenttype.id}) }}"><i class="fa fa-edit"></i></a></td>
+                                        <td><a href="{{ path('app_admin_delete_pt', {'id': paymenttype.id}) }}" class="btn btn-danger disable-btn del-link" type="submit" ><i class="fa fa-trash"></i></a></td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>

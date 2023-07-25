@@ -16,7 +16,7 @@ class Partners
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\OneToMany(mappedBy: 'partners', targetEntity: Memberships::class)]
+    #[ORM\OneToMany(mappedBy: 'id', targetEntity: Memberships::class)]
     private Collection $fk_membership_id;
 
     #[ORM\Column(length: 100)]
@@ -176,6 +176,10 @@ class Partners
     {
         $this->activated_at = $activated_at;
 
+        return $this;
+    }
+    public function findAll()
+    {
         return $this;
     }
 }

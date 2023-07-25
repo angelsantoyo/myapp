@@ -21,6 +21,20 @@ class PartnersRepository extends ServiceEntityRepository
         parent::__construct($registry, Partners::class);
     }
 
+    public function findByMembership ($value)
+    {
+
+       // var_dump($value);
+        $QR = $this->createQueryBuilder('p')
+            ->andWhere('p.fk_membership_id = :valK')
+            ->setParameter('val', $value)
+            ->orderBy('p.id', 'ASC')
+        //    ->getQuery()
+          //  ->getResult()
+            ;
+        return $QR->getQuery()
+            ->getResult();
+    }
 //    /**
 //     * @return Partners[] Returns an array of Partners objects
 //     */

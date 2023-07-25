@@ -12,6 +12,10 @@ backend:
     please_confirm: Veuillez confirmer votre action?
     choice_action: Selectionner une action
     no_item_selected: Aucun article selectionné
+    confirmacionDelete: Do you really want to delete?
+    sucess: All done
+    delete: deleted
+    neew: NUEVO
   menu:
     home: Accueil
     user: Utilisateur
@@ -24,7 +28,9 @@ backend:
     faq: FAQ
     contact: Conctact
     inbox: Boîte de reception
+    membership: Membresias
     mt: Tipos de Membresía
+    paymentT: Tipo de Pagos
   role:
     choice_role: Choisissez un role
   user:
@@ -55,9 +61,26 @@ backend:
   mt:
     name: Tipo de Membresía
     description: Descripción
-    max_members: Max Membresias
+    max_members: Max Socios
     annual_cost: Costo Anual
     monthly_amount: Costo Mensual
     modif: Modificar
     activ: Status
     borrar: Borrar
+    Title: Tipos de Membresías
+  pt:
+    name: Tipo de Pago
+    description: Descripción
+    prefix: Prefijo para Recibo
+  membership:
+    membershipNumber: Número de Membresía
+    name1: Nombre
+    telephone: Número de Contacto
+    street: Calle
+    numberStreet: Número
+    partner: Socios
+  partenrs:
+    firstName: Nombre
+    lastName: Apeido
+    birthdate: Fecha de Nacimiento
+    relationship: Relación

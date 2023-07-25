@@ -55,7 +55,7 @@ class Memberships
     private ?string $internal_number = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $m_references = null;
+    private ?string $references = null;
 
     #[ORM\Column]
     private ?bool $status = null;
@@ -66,14 +66,15 @@ class Memberships
     #[ORM\Column]
     private ?\DateTimeImmutable $updated_at = null;
 
-    #[ORM\ManyToOne(inversedBy: 'fk_membership_id')]
+/*
+    #[ORM\OneToMany(inversedBy: 'fk_membership_id')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Partners $partners = null;
 
     #[ORM\ManyToOne(inversedBy: 'fk_payment_type_id')]
     #[ORM\JoinColumn(nullable: false)]
     private ?HistoryPayments $historyPayments = null;
-
+*/
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $province_name = null;
 
@@ -261,14 +262,14 @@ class Memberships
         return $this;
     }
 
-    public function getMReferences(): ?string
+    public function getReferences(): ?string
     {
-        return $this->m_references;
+        return $this->references;
     }
 
-    public function setMReferences(string $m_references): static
+    public function setReferences(string $references): static
     {
-        $this->m_references = $m_references;
+        $this->references = $references;
 
         return $this;
     }
@@ -342,6 +343,10 @@ class Memberships
     {
         $this->province_name = $province_name;
 
+        return $this;
+    }
+    public function findAll()
+    {
         return $this;
     }
 }

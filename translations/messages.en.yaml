@@ -12,6 +12,12 @@ backend:
     please_confirm: Please confirm your action?
     choice_action: Select an action
     no_item_selected: No items selected
+    confirmacionDelete: Do you really want to delete?
+    sucess: All done
+    delete: deleted
+    neew: NEW
+    record: Record
+
   menu:
     home: Home
     user: User
@@ -24,7 +30,9 @@ backend:
     faq: FAQ
     contact: Conctact
     inbox: Inbox
+    membership: Memberships
     mt: Membership Types
+    paymentT: Payment Types
   role:
     choice_role: Choose a role
   user:
@@ -61,10 +69,27 @@ backend:
   mt:
     name: Membership Type
     description: Description
-    max_members: Max Memberships
+    max_members: Max Members
     annual_cost: Annual Cost
     monthly_amount: monthly amount
     modif: Modify
     activ: Status
     borrar: Delete
+    Title: Memberships Types
+  pt:
+    name: Payment Type
+    description: Description
+    prefix: Prefix for ticket
+  membership:
+    membershipNumber: Membership Number
+    name1: Name
+    telephone: Contact Number
+    street: Street
+    numberStreet: Number
+    partner: Partners
+  partenrs:
+    firstName: First Name
+    lastName: Last Name
+    birthdate: Birthdate
+    relationship: Relationship
 

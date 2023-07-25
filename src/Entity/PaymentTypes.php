@@ -15,23 +15,19 @@ class PaymentTypes
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
-    private ?string $payment_name = null;
+    private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $payment_description = null;
+    private ?string $description = null;
 
     #[ORM\Column]
-    private ?bool $payment_status = null;
+    private ?bool $status = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $updated_at = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $created_at = null;
-
-    #[ORM\ManyToOne(inversedBy: 'fk_membership_id')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?HistoryPayments $historyPayments = null;
 
     #[ORM\Column(length: 2)]
     private ?string $prefix = null;
@@ -41,40 +37,45 @@ class PaymentTypes
         return $this->id;
     }
 
-    public function getPaymentName(): ?string
+    public function getName(): ?string
     {
-        return $this->payment_name;
+        return $this->name;
     }
 
-    public function setPaymentName(string $payment_name): static
+    public function setName(string $payment_name): static
     {
-        $this->payment_name = $payment_name;
+        $this->name = $payment_name;
 
         return $this;
     }
 
-    public function getPaymentDescription(): ?string
+    public function getDescription(): ?string
     {
-        return $this->payment_description;
+        return $this->description;
     }
 
-    public function setPaymentDescription(?string $payment_description): static
+    public function setDescription(?string $payment_description): static
     {
-        $this->payment_description = $payment_description;
+        $this->description = $payment_description;
 
         return $this;
     }
 
-    public function isPaymentStatus(): ?bool
+    public function isStatus(): ?bool
     {
-        return $this->payment_status;
+        return $this->status;
     }
 
-    public function setPaymentStatus(bool $payment_status): static
+    public function setStatus(bool $payment_status): static
     {
-        $this->payment_status = $payment_status;
+        $this->status = $payment_status;
 
         return $this;
+    }
+
+    public function getStatus(): ?bool
+    {
+        return $this->status;
     }
 
     public function getUpdatedAt(): ?\DateTimeImmutable
@@ -122,6 +123,10 @@ class PaymentTypes
     {
         $this->prefix = $prefix;
 
+        return $this;
+    }
+    public function findAll()
+    {
         return $this;
     }
 }
