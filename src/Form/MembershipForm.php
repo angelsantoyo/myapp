@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\MembershipTypes;
+use App\Entity\Memberships;
 use App\Entity\Partners;
 use App\Entity\User;
 use Doctrine\DBAL\Types\BooleanType;
@@ -17,7 +17,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class MembershipFormType extends AbstractType
+class MembershipForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -28,7 +28,7 @@ class MembershipFormType extends AbstractType
         $builder
             ->add('membership_number', TextType::class, ['label' => $translator->trans('backend.membership.membershipNumber')])
             ->add('contact_phone_number', TextType::class, ['label' => $translator->trans('backend.membership.telephone')])
-            ->add('street', NumberType::class, ['label' => $translator->trans('backend.membership.numberStreet')])
+            ->add('street', TextType::class, ['label' => $translator->trans('backend.membership.numberStreet')])
         ;
     }
 
@@ -36,7 +36,7 @@ class MembershipFormType extends AbstractType
     {
         $resolver->setRequired('translator');
         $resolver->setDefaults([
-            'data_class' => MembershipTypes::class,
+            'data_class' => Memberships::class,
         ]);
     }
 }

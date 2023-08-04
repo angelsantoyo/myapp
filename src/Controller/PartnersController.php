@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Memberships;
 use App\Entity\MembershipTypes;
 use App\Entity\Partners;
 use App\Entity\PaymentTypes;
@@ -35,11 +36,14 @@ class PartnersController extends BaseController
 
     #[Route(path: '/admin/parametre/Partners/{Membership}', name: 'app_admin_partners')]
     #[IsGranted('ROLE_ADMINISTRATOR')]
-    public function partners(string $Membership): Response
+
+    public function partners(Memberships $Membership): Response
     {
-        $partners = $this->PartnersRepository->findByMembership([intval($Membership) ]);
+        $busca = $Membership.$this->getId();
+        $partners = $this->PartnersRepository->findBy(array('fk_membership_id' => $busca),);
         return $this->render("admin/params/partners/partners.html.twig",["partners"=>$partners]);
     }
+
 
     #[Route(path: '/admin/parametre/Partners/new', name: 'app_admin_new_partners')]
     #[IsGranted('ROLE_ADMINISTRATOR')]
@@ -58,7 +62,7 @@ class PartnersController extends BaseController
             $appPT->setCreatedAt($immutable);
             $this->entityManager->persist($appPT);
             $this->entityManager->flush();
-            $this->addFlash("success","PT success");
+            $this->addFlash("success","Partners success");
             return $this->redirectToRoute("app_admin_partners");
 
         }
@@ -69,7 +73,7 @@ class PartnersController extends BaseController
     #[IsGranted('ROLE_ADMINISTRATOR')]
     public function editPartners(Partners $appPT,Request $request): Response
     {
-        $form = $this->createForm(PTFormType::class, $appPT, ['translator' => $this->translator]);
+        $form = $this->createForm(PartnersFormType::class, $appPartners, ['translator' => $this->translator]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
             $date = new DateTime();

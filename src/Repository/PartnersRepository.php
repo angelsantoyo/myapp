@@ -2,8 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\Memberships;
 use App\Entity\Partners;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Types\IntegerType;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -21,19 +23,18 @@ class PartnersRepository extends ServiceEntityRepository
         parent::__construct($registry, Partners::class);
     }
 
-    public function findByMembership ($value)
+    public function findByMembership (  $value): ?Partners
     {
 
-       // var_dump($value);
-        $QR = $this->createQueryBuilder('p')
-            ->andWhere('p.fk_membership_id = :valK')
+        var_dump($value);
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.fk_membership_id = :val')
             ->setParameter('val', $value)
             ->orderBy('p.id', 'ASC')
-        //    ->getQuery()
-          //  ->getResult()
+            ->getQuery()
+            ->getResult()
             ;
-        return $QR->getQuery()
-            ->getResult();
+
     }
 //    /**
 //     * @return Partners[] Returns an array of Partners objects

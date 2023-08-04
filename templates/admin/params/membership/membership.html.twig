@@ -53,7 +53,13 @@
                                         <td>{{ membership.street }}</td>
                                         <td>{{ membership.externalNumber }}</td>
                                         <td>{{ membership.contactPhoneNumber }}</td>
-                                        <td><a class="btn btn-primary" href="{{ path('app_admin_partners',{"Membership": membership.membershipNumber }) }}"><i class="fa fa-edit">{{membership.membershipNumber }}</i></a></td>
+
+                              {#        si algun dia funciona... esta es la idea para obtener a los socios de la membresia
+
+                                        {% for partner in membership.partners|filter(partner => partner.id)  %}
+                                            <td>{{ partner.firstname }}</td>
+                                        {% endfor %}
+                              #}
                                         <td><a class="btn btn-primary" href="{{ path('app_admin_edit_membership',{"id":membership.id}) }}"><i class="fa fa-edit"></i></a></td>
                                         <td><a href="{{ path('app_admin_delete_membership', {'id': membership.id}) }}" class="btn btn-danger disable-btn del-link" type="submit" ><i class="fa fa-trash"></i></a></td>
                                     </tr>

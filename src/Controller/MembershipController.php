@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Memberships;
 use App\Entity\Partners;
+use App\Form\MembershipForm;
 use App\Form\MembershipFormType;
 use App\Repository\MembershipsRepository;
 use App\Repository\PartnersRepository;
@@ -67,7 +68,7 @@ class MembershipController extends BaseController
     #[IsGranted('ROLE_ADMINISTRATOR')]
     public function editMembership(Memberships $appMembership,Request $request): Response
     {
-        $form = $this->createForm(MembershipFormType::class, $appMembership, ['translator' => $this->translator]);
+        $form = $this->createForm(MembershipForm::class, $appMembership, ['translator' => $this->translator]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
             $date = new DateTime();
@@ -77,7 +78,7 @@ class MembershipController extends BaseController
             $appMembership = $form->getData();
             $appMembership->setStatus(true);
             $appMembership->setUpdatedAt($immutable);
-            $this->entityManager->persist($appMT);
+            $this->entityManager->persist($appMembership);
             $this->entityManager->flush();
             $this->addFlash("success","Membership modifié");
             return $this->redirectToRoute("app_admin_membership");

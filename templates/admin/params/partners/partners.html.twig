@@ -1,4 +1,6 @@
+{% extends "admin/bars.html.twig" %}
 
+{% block contenpage %}
     <div class="">
         <div class="page-title">
             <div class="title_left">
@@ -36,21 +38,21 @@
                             <table id="example" class="display table table-striped table-bordered dataminetables" >
                                 <thead>
                                 <th><input type="checkbox" id="select_all" name="select_all"></th>
-                                <th>{{ 'backend.pt.name'|trans }}</th>
-                                <th>{{ 'backend.pt.description'|trans }}</th>
-                                <th>{{ 'backend.pt.prefix'|trans }}</th>
+                                <th>{{ 'backend.partenrs.firstName'|trans }}</th>
+                                <th>{{ 'backend.partenrs.birthdate'|trans }}</th>
+                                <th>{{ 'backend.partenrs.relationship'|trans }}</th>
                                 <th>{{ 'backend.mt.modif'|trans }}</th>
                                 <th>{{ 'backend.mt.borrar'|trans }}</th>
                                 </thead>
                                 <tbody>
-                                {% for paymenttype in paymenttypes|filter(paymenttype => paymenttype.status)  %}
+                                {% for partner in partners|filter(partner => partner.id)  %}
                                     <tr>
-                                        <td><input type="checkbox" class="chkgrp" name="chkgrp[]" value="{{ paymenttype.id }}"></td>
-                                        <td>{{ paymenttype.name }}</td>
-                                        <td>{{paymenttype.description }}</td>
-                                        <td>{{ paymenttype.prefix }}</td>
-                                        <td><a class="btn btn-primary" href="{{ path('app_admin_edit_pt',{"id":paymenttype.id}) }}"><i class="fa fa-edit"></i></a></td>
-                                        <td><a href="{{ path('app_admin_delete_pt', {'id': paymenttype.id}) }}" class="btn btn-danger disable-btn del-link" type="submit" ><i class="fa fa-trash"></i></a></td>
+                                        <td><input type="checkbox" class="chkgrp" name="chkgrp[]" value="{{ partner.id }}"></td>
+                                        <td>{{ partner.firstName }}</td>
+                                        <td>{{partner.birthdate.format('Y-m-d ')}}</td>
+                                        <td>{{partner.relationship}}</td>
+                                        <td><a class="btn btn-primary" href="{{ path('app_admin_edit_partners',{"id":partner.id}) }}"><i class="fa fa-edit"></i></a></td>
+                                        <td><a href="{{ path('app_admin_delete_partners', {'id': partner.id}) }}" class="btn btn-danger disable-btn del-link" type="submit" ><i class="fa fa-trash"></i></a></td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>
@@ -61,3 +63,5 @@
             </div>
         </div>
     </div>
+
+{% endblock %}

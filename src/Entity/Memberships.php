@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\MembershipsRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MembershipsRepository::class)]
@@ -15,8 +13,8 @@ class Memberships
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\OneToMany(mappedBy: 'memberships', targetEntity: MembershipTypes::class)]
-    private Collection $fk_membership_type_id;
+    #[ORM\ManyToOne(targetEntity: MembershipTypes::class, inversedBy: 'id')]
+    private MembershipTypes $fkMembershipType;
 
     #[ORM\Column(length: 36)]
     private ?string $membership_number = null;
@@ -66,11 +64,11 @@ class Memberships
     #[ORM\Column]
     private ?\DateTimeImmutable $updated_at = null;
 
-/*
-    #[ORM\OneToMany(inversedBy: 'fk_membership_id')]
+
+    #[ORM\ManyToOne(inversedBy: 'fk_membership_id')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Partners $partners = null;
-
+/*
     #[ORM\ManyToOne(inversedBy: 'fk_payment_type_id')]
     #[ORM\JoinColumn(nullable: false)]
     private ?HistoryPayments $historyPayments = null;
@@ -80,7 +78,7 @@ class Memberships
 
     public function __construct()
     {
-        $this->fk_membership_type_id = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -88,15 +86,19 @@ class Memberships
         return $this->id;
     }
 
-    /**
-     * @return Collection<int, MembershipTypes>
-     */
-    public function getFkMembershipTypeId(): Collection
+    public function getFkMembershipType(): ?MembershipTypes
     {
-        return $this->fk_membership_type_id;
+        return $this->fkMembershipType;
     }
 
-    public function addFkMembershipTypeId(MembershipTypes $fkMembershipTypeId): static
+    public function setFkMembershipType(?MembershipTypes $fkMembershipType): self
+    {
+        $this->fkMembershipType = $fkMembershipType;
+
+        return $this;
+    }
+
+    /*public function addFkMembershipTypeId(MembershipTypes $fkMembershipTypeId): static
     {
         if (!$this->fk_membership_type_id->contains($fkMembershipTypeId)) {
             $this->fk_membership_type_id->add($fkMembershipTypeId);
@@ -117,7 +119,7 @@ class Memberships
 
         return $this;
     }
-
+*/
     public function getMembershipNumber(): ?string
     {
         return $this->membership_number;
