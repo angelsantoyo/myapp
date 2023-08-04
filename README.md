@@ -22,6 +22,31 @@ Gentelella A skeleton application with user account functionality on the foundat
 - FAQ module
 - Translation functionality (Easy to set up whatever language you need/use)
 
+# **Dockerized the develop (OPTIONAL)**
+- If you are working with Docker Desktop for Mac, ensure **you have enabled `VirtioFS` for your sharing implementation**. `VirtioFS` brings improved I/O performance for operations on bind mounts. Enabling VirtioFS will automatically enable Virtualization framework.
+
+- Create the file `./.docker/.env.nginx.local` using `./.docker/.env.nginx` as template. The value of the variable `NGINX_BACKEND_DOMAIN` is the `server_name` used in NGINX.
+
+- For MAC and use the database local yo should
+Docker for Mac (native)
+Docker for Mac is particularly problematic because of networking limitations. The solution is as follows:
+
+sudo ifconfig lo0 alias 10.200.10.1/24  # (where 10.200.10.1 is some unused IP address)
+export DOCKER_HOST_IP=10.200.10.1
+
+- Go inside folder `./docker` and run `docker compose up -d` to start containers.
+
+- You should work inside the `php` container. This project is configured to work with [Remote Container](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension for Visual Studio Code, so you could run `Reopen in container` command after open the project.
+
+- Inside the `php` container, run `composer install` to install dependencies from `/var/www/symfony` folder.
+
+- Use the following value for the DATABASE_URL environment variable:
+
+```
+DATABASE_URL=mysql://app_user:helloworld@db:3306/app_db?serverVersion=8.0.33
+```
+
+You could change the name, user and password of the database in the `env` file at the root of the project.
 # **Requirements**
 - PHP >= 8 (8.2.4 used in composer.json)
 - Symfony- 6.2.*
